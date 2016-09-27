@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 
 public class TestMain {
@@ -90,6 +96,7 @@ public class TestMain {
 	
 		
 		
+	
 		
 		//给登录按钮添加事件监听
 		buttonLogin.addActionListener(new ActionListener() {
@@ -101,12 +108,12 @@ public class TestMain {
 				String name = txtName.getText();
 				char[] cs = txtPass.getPassword();
 				String pass = new String(cs);
+				
 				if(name == null || name.equals("")){
 					JOptionPane.showMessageDialog(frame, "用户名不能为空");
 					txtName.requestFocus();
 					return;
 				}
-				
 				if (pass == null || pass.equals("")){
 					JOptionPane.showMessageDialog(frame, "密码不能为空");
 					txtPass.requestFocus();
@@ -114,12 +121,37 @@ public class TestMain {
 					
 				}
 				
-				if(name.equals("张三") && pass.equals("123")){
+				//获取数据库的连接
+				try {
+					
+					Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","root");
+				    PreparedStatement ps = (PreparedStatement) conn.prepareStatement("select uname,upwd from user where uname=? and upwd = ?");
+				    ps.setString(1, name);
+				    ps.setString(2,pass);
+				    //执行SQL语句
+				    ResultSet rs = ps.executeQuery();
+				    if(rs.next()){
+				    	//先关闭当前窗口
+				    	frame.dispose();
+				    	//打开新的窗口
+				    	new MainFrame();
+				    	
+				    }else{
+				    	JOptionPane.showMessageDialog(frame, "用户名和密码错误");
+				    	//用户名的输入框获取焦点
+				    	txtName.selectAll();
+				    }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			/*	if(name.equals("张三") && pass.equals("123")){
 					//先关闭当前窗口
 					frame.dispose();
 					//打开新的窗口
 					new MainFrame();
-				}
+				}*/
 			}
 		});
 		
