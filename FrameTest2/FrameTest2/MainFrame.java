@@ -1,11 +1,13 @@
+package FrameTest2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -25,16 +28,28 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import org.junit.Test;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+
+
 
 public class MainFrame  extends JFrame{
 	JPanel panelLeft;
 	JPanel panelRight;
+
 	
+	public static void main(String[] args){
+		new MainFrame();
+	}
 	
 	public MainFrame() {
 		// TODO Auto-generated constructor stub
 	     createFrame();
 	}
+	
 	
 	//创建窗体
 	public void createFrame(){
@@ -163,10 +178,10 @@ public class MainFrame  extends JFrame{
 			//先删除Panel中之前的内容
 			System.out.println("addEmp");
 			panelRight.removeAll();
-			panelRight.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			panelRight.setLayout(new FlowLayout(FlowLayout.LEFT));
 			JLabel lableName = new JLabel("姓    名:");
 			final JTextField txtName = new JTextField(16);
-			JLabel lableGender = new JLabel("性    别:");
+			JLabel lableGender = new JLabel("                     性    别:");
 			JRadioButton male = new JRadioButton("男");
 			male.setOpaque(false);
 			final JRadioButton female = new JRadioButton("女");
@@ -176,12 +191,12 @@ public class MainFrame  extends JFrame{
 			group.add(male);
 			group.add(female);
 			
-			JLabel labelTest = new JLabel("         ");
+			JLabel labelTest = new JLabel("                ");
 			
-			JLabel labelDept = new JLabel("部   门:");
+			JLabel labelDept = new JLabel("                        部   门:");
 			String[] items = {"开发部", "市场部","行政部"};
 			final JComboBox<String> boxDept = new JComboBox<String>(items);
-			JLabel labelTest1 = new JLabel("               ");
+			JLabel labelTest1 = new JLabel("22222222222222");
 			JButton butAdd = new JButton("添加");
 			
 			panelRight.add(lableName);
@@ -189,10 +204,9 @@ public class MainFrame  extends JFrame{
 			panelRight.add(lableGender);
 			panelRight.add(male);
 			panelRight.add(female);
-			panelRight.add(labelTest);
 			panelRight.add(labelDept);
 			panelRight.add(boxDept);
-			panelRight.add(labelTest);
+			panelRight.add(labelTest1);
 			panelRight.add(butAdd);
 			
 			System.out.println("panelRight");
@@ -203,19 +217,51 @@ public class MainFrame  extends JFrame{
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					String name = txtName.getText();
-					String gender = "男";
+					int gender = 1;
 					if(female.isSelected()){
-						gender = "女";	
+						gender = 0;	
 					}
 					String dept = (String) boxDept.getSelectedItem();
-					System.out.println(name+","+gender+","+dept);
+					//添加员工信息进入数据库
+					Emplyer emplyer = new Emplyer(name,gender,dept);
+					Boolean Issaved = saveEmp(emplyer);
+					
+					if (Issaved){
+						JOptionPane.showMessageDialog(MainFrame.this,"保存失败");
+					}else{
+						JOptionPane.showMessageDialog(MainFrame.this,"保存成功");
+					}
 				}
 			});
 			
-	
+			panelRight.repaint();
 			panelRight.updateUI();
+			
 		}
 		
+		public boolean saveEmp(Emplyer emplyer){
+			Connection conn = null;
+			try {
+			 conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "root");
+			 PreparedStatement pre = (PreparedStatement) conn.prepareStatement("Insert into test.employee(emp_name,emp_gender,emp_dept) values(?,?,?)");
+			 pre.setString(1, emplyer.getName());
+			 pre.setInt(2, emplyer.getGender());
+			 pre.setString(3, emplyer.getDept());
+			 
+			 Boolean result =  pre.execute();
+			 return result;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+			 
+			 return false;
+			
+		
+			
+			
+		}
 		
 	
 	
