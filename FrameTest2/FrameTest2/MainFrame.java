@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -20,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTree;
@@ -39,15 +42,18 @@ import com.mysql.jdbc.PreparedStatement;
 public class MainFrame  extends JFrame{
 	JPanel panelLeft;
 	JPanel panelRight;
+	
+	private String passOldStr;
+    private String name;
+    private String pass;
+	
 
 	
-	public static void main(String[] args){
-		new MainFrame();
-	}
-	
-	public MainFrame() {
+	public MainFrame(String name,String pass) {
 		// TODO Auto-generated constructor stub
-	     createFrame();
+	    this.name = name;
+	    this.pass = pass;
+		createFrame();
 	}
 	
 	
@@ -88,7 +94,7 @@ public class MainFrame  extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("aaaa");
+			
 				
 			}
 		});
@@ -129,9 +135,13 @@ public class MainFrame  extends JFrame{
 			node02.add(new DefaultMutableTreeNode("查询所有部门"));
 			node02.add(new DefaultMutableTreeNode("修改"));
 			
+			//添加账号相关
+			DefaultMutableTreeNode node03 = new DefaultMutableTreeNode("账号相关");
+			node03.add(new DefaultMutableTreeNode("修改密码"));
 			DefaultMutableTreeNode root = new DefaultMutableTreeNode("所有操作");
 			root.add(node01);
 			root.add(node02);
+			root.add(node03);
 			
 			final JTree tree = new JTree(root);
 			//设置tree背景透明
@@ -153,12 +163,13 @@ public class MainFrame  extends JFrame{
 						String str= (String) node.getUserObject();
 						
 						if (str.equals("新增")){
-							System.out.println(str);
+							
 							addEmp();
 //							panelRight.validate();
-							
 						
-						}
+						}else if(str.equals("修改密码")){
+							modifyPassword();
+													}
 					}
 					
 				}
@@ -176,7 +187,7 @@ public class MainFrame  extends JFrame{
 //			panelRight.add(test);
 			
 			//先删除Panel中之前的内容
-			System.out.println("addEmp");
+	
 			panelRight.removeAll();
 			panelRight.setLayout(new FlowLayout(FlowLayout.LEFT));
 			JLabel lableName = new JLabel("姓    名:");
@@ -196,7 +207,7 @@ public class MainFrame  extends JFrame{
 			JLabel labelDept = new JLabel("                        部   门:");
 			String[] items = {"开发部", "市场部","行政部"};
 			final JComboBox<String> boxDept = new JComboBox<String>(items);
-			JLabel labelTest1 = new JLabel("22222222222222");
+			JLabel labelTest1 = new JLabel("");
 			JButton butAdd = new JButton("添加");
 			
 			panelRight.add(lableName);
@@ -209,7 +220,7 @@ public class MainFrame  extends JFrame{
 			panelRight.add(labelTest1);
 			panelRight.add(butAdd);
 			
-			System.out.println("panelRight");
+
 			
 			butAdd.addActionListener(new ActionListener() {
 				
@@ -223,8 +234,9 @@ public class MainFrame  extends JFrame{
 					}
 					String dept = (String) boxDept.getSelectedItem();
 					//添加员工信息进入数据库
-					Emplyer emplyer = new Emplyer(name,gender,dept);
-					Boolean Issaved = saveEmp(emplyer);
+					Employer employer = new Employer(name,gender,dept);
+					Boolean Issaved = saveEmp(employer);
+				
 					
 					if (Issaved){
 						JOptionPane.showMessageDialog(MainFrame.this,"保存失败");
@@ -239,15 +251,99 @@ public class MainFrame  extends JFrame{
 			
 		}
 		
-		public boolean saveEmp(Emplyer emplyer){
+		public void modifyPassword(){
+			//先删除Panel中之前的内容
+			panelRight.removeAll();
+			panelRight.setLayout(new FlowLayout(FlowLayout.LEFT));
+			JLabel labeloldPass = new JLabel("  原密码");
+			JLabel labelNewPass01 = new JLabel("  新密码");
+			JLabel labelNewPass02 = new JLabel("重复密码:");
+			
+			final JPasswordField passold = new JPasswordField(14);
+			final JPasswordField passNew01 = new JPasswordField(14);
+			final JPasswordField passNew02 = new JPasswordField(14);
+			
+			JButton butModify = new JButton("修改密码");
+			
+			panelRight.add(labeloldPass);
+			panelRight.add(passold);
+			panelRight.add(labelNewPass01);
+			panelRight.add(passNew01);
+			panelRight.add(labelNewPass02);
+			panelRight.add(passNew02);
+			panelRight.add(butModify);
+			
+			passold.addFocusListener(new FocusListener() {
+				
+				@Override
+				public void focusLost(FocusEvent arg0) {
+					// TODO Auto-generated method stub
+					//获取该文本框中的值
+					char[] cs = passold.getPassword();
+				    passOldStr = new String(cs); 
+				    if(!pass.equals(passOldStr)){
+				    	JOptionPane.showMessageDialog(MainFrame.this,"原密码有误!");
+				    	passold.requestFocus();
+				    	passold.selectAll();
+				    }
+				}
+				
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			
+			});
+			
+			butModify.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					//获取新密码
+					char[] cs01 = passNew01.getPassword();
+					char[] cs02 = passNew02.getPassword();
+					String p01 = new String(cs01);
+					String p02 = new String(cs02);
+					if(!p01.equals(p02)){
+						JOptionPane.showMessageDialog(MainFrame.this,"两次密码不一致" );
+					}else{
+						//修改密码
+						try{
+							System.out.println(name+"   "+p02);
+							
+							boolean flag = UserManager.modifyPass(name, p02);
+						    
+							if(flag){
+								JOptionPane.showMessageDialog(MainFrame.this,"密码修改成功");
+								
+							}else{
+								JOptionPane.showMessageDialog(MainFrame.this, "密码修改失败");
+								
+							}
+						} catch (ClassNotFoundException e){
+							e.printStackTrace();
+						}
+						
+					}
+				}
+			});
+			
+			panelRight.updateUI();
+			
+			
+		}
+		public boolean saveEmp(Employer emplyer){
 			Connection conn = null;
 			try {
 			 conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "root");
-			 PreparedStatement pre = (PreparedStatement) conn.prepareStatement("Insert into test.employee(emp_name,emp_gender,emp_dept) values(?,?,?)");
+			 PreparedStatement pre = (PreparedStatement) conn.prepareStatement("Insert into test.staffs(emp_name,emp_gender,emp_dept) values(?,?,?)");
 			 pre.setString(1, emplyer.getName());
-			 pre.setInt(2, emplyer.getGender());
+			 pre.setString(2, emplyer.getGender());
 			 pre.setString(3, emplyer.getDept());
-			 
+			 System.out.println(emplyer.getGender());
 			 Boolean result =  pre.execute();
 			 return result;
 			} catch (SQLException e) {

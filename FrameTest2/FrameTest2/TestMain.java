@@ -126,7 +126,7 @@ public class TestMain {
 				try {
 					
 					Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","root");
-				    PreparedStatement ps = (PreparedStatement) conn.prepareStatement("select uname,upwd from user where uname=? and upwd = ?");
+				    PreparedStatement ps = (PreparedStatement) conn.prepareStatement("select uname,upwd from employer where uname=? and upwd = ?");
 				    ps.setString(1, name);
 				    ps.setString(2,pass);
 				    //执行SQL语句
@@ -135,7 +135,7 @@ public class TestMain {
 				    	//先关闭当前窗口
 				    	frame.dispose();
 				    	//打开新的窗口
-				    	new MainFrame();
+				    	new MainFrame(name,pass);
 				    	
 				    }else{
 				    	JOptionPane.showMessageDialog(frame, "用户名和密码错误");
