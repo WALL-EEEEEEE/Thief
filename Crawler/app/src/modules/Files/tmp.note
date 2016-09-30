@@ -1,0 +1,49 @@
+1.Java中的BufferedReader中的read(char[]),方法如果char[]数组设置的是char[1024]读取正常,但是读取char[30]会出现读取的内容重复了,猜测可能是文件指针越界回溯
+    Code Snippet[
+                char[] wbytes = new char[1024];
+                while((filebr.read(wbytes))!=-1){
+
+                    fcontents.append(String.valueOf(wbytes));
+
+                    System.out.println(fcontents);
+
+                }
+
+
+
+     ]
+运行结果:
+
+        .testing
+        spliting:
+        appName={"Crawler_Web","hello,name"}
+        logpath={"log/path","the World"}
+        path={"log/path","th
+        testing.....
+
+2.Java中的BufferedReader中的reader(CharBuffer ),方法读取不出来内容,读取内容为空
+
+   Code Snippet[
+                CharBuffer  cb = CharBuffer.allocate(1024);
+                while((filebr.read(cb))!=-1){
+
+                    fcontents.append(String.valueOf(cb));
+
+                    System.out.println(fcontents);
+
+                }
+
+
+
+
+]
+运行结果:
+
+
+    JUnit version 4.12
+    .testing
+
+    spliting:
+
+    testing.....
+3.Java中数组在函数中是按照地址传递,如果在函数中将其重新赋值分配为新建的数组,不是将原来的数组指针指向重新分配的数组,而是在函数中重新建立一个局部变量指针,用它来指向新建的数组,而原来的指针指向原来的数组并不受影响?

@@ -1,3 +1,4 @@
+package FrameTest2;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,119 +18,120 @@ import javax.swing.JTextField;
 
 public class TestMain {
    
-	static JFrame frame;
-	static JTextField txtName;
-	static JPasswordField txtPass;
-	 
-	public static void main(String[] args) {
-	   //´´½¨´°Ìå
-		createFrame();
-	}
-	
-	//´´½¨´°Ìå
-	private static void createFrame() {
-		// TODO Auto-generated method stub
+    static JFrame frame;
+    static JTextField txtName;
+    static JPasswordField txtPass;
+     
+    public static void main(String[] args) {
+       //åˆ›å»ºçª—ä½“
+        createFrame();
+    }
+    
+    //åˆ›å»ºçª—ä½“
+    private static void createFrame() {
+         // TODO Auto-generated method stub
          frame = new JFrame();
-         frame.setTitle("µÇÂ¼");
+         frame.setTitle("ç™»å½•");
          frame.setBounds(200, 200, 300, 350);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setLayout(new FlowLayout());
-         //ÔÚ´°ÌåÖĞÌí¼ÓÍ¼Æ¬
+         
+         //åœ¨çª—ä½“ä¸­æ·»åŠ å›¾ç‰‡
          addImg();
-         //Ìí¼ÓÓÃ»§ÃûºÍÃÜÂë
+         //æ·»åŠ ç”¨æˆ·åå’Œå¯†ç 
          addUserInfo();
          frame.setVisible(true);
-	}
-	
-	//»ñÈ¡Ö¸¶¨Î»ÖÃµÄÍ¼Æ¬
-	public static Image getImage(String imgPath){
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image img = toolkit.getImage(imgPath);
-		return img;
-	}
-	
-	public static void addImg(){
-		Image img = getImage("imgs/bg.jpg");
-		JLabel label = new JLabel(new ImageIcon(img));
-		frame.add(label);
-	}
-	
-	//ÔÚ´°ÌåÖĞÌí¼ÓÓÃ»§ÃûºÍÃÜÂë
-	public static void addUserInfo(){
-		JLabel labelName = new JLabel("ÓÃ»§Ãû£º");
-		JLabel labelPass = new JLabel("ÃÜÂë: ");
-		txtName = new JTextField(18);
-		txtPass = new JPasswordField(18);
-		txtName.addFocusListener(new FocusListener() {
-	    		
-			
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-			    String name = txtName.getText();
-			    //ÅĞ¶ÏÓÃ»§ÃûºÍÃÜÂëµÄÊäÈë¿òÊÇ·ñÎª¿Õ
-			    if (name == null || name.equals("")){
-			    	JOptionPane.showMessageDialog(frame, "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
-			    	txtName.requestFocus();
-			    	return ;
-			    }
-			}
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-				txtName.selectAll();
-			}
-		});
-		
-		Image imgLogin = getImage("image/login.png");
-		Image imageCancel = getImage("image/dialog_cancel.png");
-		JButton buttonLogin = new JButton("µÇÂ¼",new ImageIcon(imgLogin));
-		JButton buttonCancel = new JButton("È¡Ïû", new ImageIcon(imageCancel));
-		
-	
-		
-		
-		
-		//¸øµÇÂ¼°´Å¥Ìí¼ÓÊÂ¼ş¼àÌı
-		buttonLogin.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				//ÊäÈë¿òÖĞµÄÖµ
-				String name = txtName.getText();
-				char[] cs = txtPass.getPassword();
-				String pass = new String(cs);
-				if(name == null || name.equals("")){
-					JOptionPane.showMessageDialog(frame, "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
-					txtName.requestFocus();
-					return;
-				}
-				
-				if (pass == null || pass.equals("")){
-					JOptionPane.showMessageDialog(frame, "ÃÜÂë²»ÄÜÎª¿Õ");
-					txtPass.requestFocus();
-					return ;
-					
-				}
-				
-				if(name.equals("ÕÅÈı") && pass.equals("123")){
-					//ÏÈ¹Ø±Õµ±Ç°´°¿Ú
-					frame.dispose();
-					//´ò¿ªĞÂµÄ´°¿Ú
-					new MainFrame();
-				}
-			}
-		});
-		
-		
-		frame.add(labelName);
-		frame.add(txtName);
-		frame.add(labelPass);
-		frame.add(txtPass);
-		frame.add(buttonLogin);
-		frame.add(buttonCancel);
-	}
-	
+    }
+    
+    //è·å–æŒ‡å®šä½ç½®çš„å›¾ç‰‡
+    public static Image getImage(String imgPath){
+         Toolkit toolkit = Toolkit.getDefaultToolkit();
+         Image img = toolkit.getImage(imgPath);
+         return img;
+    }
+    
+    public static void addImg(){
+        Image img = getImage("imgs/bg.jpg");
+        JLabel label = new JLabel(new ImageIcon(img));
+        frame.add(label);
+    }
+    
+    //åœ¨çª—ä½“ä¸­æ·»åŠ ç”¨æˆ·åå’Œå¯†ç 
+    public static void addUserInfo(){
+        JLabel labelName = new JLabel("ç”¨æˆ·åï¼š");
+        JLabel labelPass = new JLabel("å¯†ç : ");
+        txtName = new JTextField(18);
+        txtPass = new JPasswordField(18);
+        txtName.addFocusListener(new FocusListener() {
+                
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                // TODO Auto-generated method stub
+                String name = txtName.getText();
+                //åˆ¤æ–­ç”¨æˆ·åå’Œå¯†ç çš„è¾“å…¥æ¡†æ˜¯å¦ä¸ºç©º
+                if (name == null || name.equals("")){
+                    JOptionPane.showMessageDialog(frame, "ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
+                    txtName.requestFocus();
+                    return ;
+                }
+            }
+            
+            @Override
+            public void focusGained(FocusEvent e) {
+                // TODO Auto-generated method stub
+                txtName.selectAll();
+            }
+        });
+        
+        Image imgLogin = getImage("image/login.png");
+        Image imageCancel = getImage("image/dialog_cancel.png");
+        JButton buttonLogin = new JButton("ç™»å½•",new ImageIcon(imgLogin));
+        JButton buttonCancel = new JButton("å–æ¶ˆ", new ImageIcon(imageCancel));
+        
+    
+        
+        
+        
+        //ç»™ç™»å½•æŒ‰é’®æ·»åŠ äº‹ä»¶ç›‘å¬
+        buttonLogin.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
+                //è¾“å…¥æ¡†ä¸­çš„å€¼
+                String name = txtName.getText();
+                char[] cs = txtPass.getPassword();
+                String pass = new String(cs);
+                if(name == null || name.equals("")){
+                    JOptionPane.showMessageDialog(frame, "ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
+                    txtName.requestFocus();
+                    return;
+                }
+                
+                if (pass == null || pass.equals("")){
+                    JOptionPane.showMessageDialog(frame, "å¯†ç ä¸èƒ½ä¸ºç©º");
+                    txtPass.requestFocus();
+                    return ;
+                    
+                }
+                
+                if(name.equals("å¼ ä¸‰") && pass.equals("123")){
+                    //å…ˆå…³é—­å½“å‰çª—å£
+                    frame.dispose();
+                    //æ‰“å¼€æ–°çš„çª—å£
+                    new MainFrame();
+                }
+            }
+        });
+        
+        
+        frame.add(labelName);
+        frame.add(txtName);
+        frame.add(labelPass);
+        frame.add(txtPass);
+        frame.add(buttonLogin);
+        frame.add(buttonCancel);
+    }
+    
 }

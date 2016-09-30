@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="modules/plugin/jexcelapi/src/|modules/plugin/jexcelapi/build/|modules/test/|modules/plugin/|modules/test/DecoratorModuleTest/|modules/" kind="src" path=""/>
+	<classpathentry excluding="plugin/jexcelapi/src/|plugin/jexcelapi/build/|test/|plugin/|test/DecoratorModuleTest/" kind="src" path="modules"/>
+	<classpathentry excluding="jexcelapi/src/|jexcelapi/build/" kind="src" path="modules/plugin"/>
+	<classpathentry kind="src" path="modules/plugin/jexcelapi/build"/>
+	<classpathentry kind="src" path="modules/plugin/jexcelapi/src"/>
+	<classpathentry excluding="DecoratorModuleTest/" kind="src" path="modules/test"/>
+	<classpathentry kind="src" path="modules/test/DecoratorModuleTest"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="test_bin"/>
+</classpath>

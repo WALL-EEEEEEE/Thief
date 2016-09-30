@@ -1,0 +1,16 @@
+/**
+ *
+ *测试对象
+ */
+public class TestCaculator{
+
+
+    public double add(double n1,double n2){
+
+        return n1+n2;
+    }
+
+}
+
+
+

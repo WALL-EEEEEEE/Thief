@@ -1,3 +1,4 @@
+package FrameTest2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,32 +28,32 @@ public class MainFrame  extends JFrame{
 	     createFrame();
 	}
 	
-	//´´½¨´°Ìå
+	//åˆ›å»ºçª—ä½“
 	public void createFrame(){
-		this.setTitle("Ö÷Ò³Ãæ");
+		this.setTitle("ä¸»é¡µé¢");
 		this.setBounds(200, 200, 500, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setResizable(false);
 		addMenuBar();
-		//Ìí¼Ó×ó±ßµÄÃæ°å
+		//æ·»åŠ å·¦è¾¹çš„é¢æ¿
 		initLeft();
-		//Ìí¼ÓÓÒ±ßµÄÃæ°å
+		//æ·»åŠ å³è¾¹çš„é¢æ¿
 		initRight();
 		this.setVisible(true);
 		
 		
 	}
 	
-	//ÔÚµ±Ç°´°¿ÚÌí¼Ó²Ëµ¥
+	//åœ¨å½“å‰çª—å£æ·»åŠ èœå•
 	public void addMenuBar(){
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menuFile = new JMenu("ÎÄ¼ş");
+		JMenu menuFile = new JMenu("æ–‡ä»¶");
 		Image imgNew = TestMain.getImage("imgs/png");
 		
-		JMenuItem itemNew = new JMenuItem("ĞÂ½¨",new ImageIcon(imgNew));
-		JMenuItem itemSave =  new JMenuItem("±£´æ");
-		JMenuItem itemExit = new JMenuItem("ÍË³ö");
+		JMenuItem itemNew = new JMenuItem("æ–°å»º",new ImageIcon(imgNew));
+		JMenuItem itemSave =  new JMenuItem("ä¿å­˜");
+		JMenuItem itemExit = new JMenuItem("é€€å‡º");
 		menuFile.add(itemNew);
 		menuFile.add(itemSave);
 		menuFile.add(menuFile);
@@ -69,49 +70,49 @@ public class MainFrame  extends JFrame{
 		});
 	}
 		
-		//µ±Ç°´°¿ÚµÄ×ó±ßÌï¼äJPanel
+		//å½“å‰çª—å£çš„å·¦è¾¹ç”°é—´JPanel
 		
 		public void initLeft(){
 			panelLeft = new JPanel();
-			//ÉèÖÃ×ó¶ÔÆë
+			//è®¾ç½®å·¦å¯¹é½
 			panelLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
-			//ÉèÖÃJpanelµÄ¿í¶È
+			//è®¾ç½®Jpanelçš„å®½åº¦
 			panelLeft.setPreferredSize(new Dimension(150, 100));
 			
-			//½«ÊôĞÔ²Ëµ¥·ÅÈëpanelÖĞ
+			//å°†å±æ€§èœå•æ”¾å…¥panelä¸­
 			initTree();
 			this.add(panelLeft,BorderLayout.WEST);
 		}
 		
-		//ÔÚµ±Ç°¿ó¿ÚµÄÖĞ¼ä²¿·ÖÌí¼Ópanel
+		//åœ¨å½“å‰çŸ¿å£çš„ä¸­é—´éƒ¨åˆ†æ·»åŠ panel
 		public void initRight(){
 			panelRight = new JPanel();
 			panelRight.setBackground(Color.ORANGE);
-		    //ÉèÖÃJpanelµÄ¿í¶È
+		    //è®¾ç½®Jpanelçš„å®½åº¦
 			this.add(panelRight,BorderLayout.CENTER);
 			
 		}
 		
-		//³õÊ¼»¯JTree
+		//åˆå§‹åŒ–JTree
 		public void initTree(){
-			DefaultMutableTreeNode node01 = new DefaultMutableTreeNode("Ô±¹¤¹ÜÀí");
-			node01.add(new DefaultMutableTreeNode("ĞÂÔö"));
-			node01.add(new DefaultMutableTreeNode("²éÑ¯"));
-			node01.add(new DefaultMutableTreeNode("ĞŞ¸Ä"));
+			DefaultMutableTreeNode node01 = new DefaultMutableTreeNode("å‘˜å·¥ç®¡ç†");
+			node01.add(new DefaultMutableTreeNode("æ–°å¢"));
+			node01.add(new DefaultMutableTreeNode("æŸ¥è¯¢"));
+			node01.add(new DefaultMutableTreeNode("ä¿®æ”¹"));
 			
-			DefaultMutableTreeNode node02 = new DefaultMutableTreeNode("²¿ÃÅ¹ÜÀí");
-			node02.add(new DefaultMutableTreeNode("ĞÂÔö²¿ÃÅ"));
-			node02.add(new DefaultMutableTreeNode("²éÑ¯ËùÓĞ²¿ÃÅ"));
-			node02.add(new DefaultMutableTreeNode("ĞŞ¸Ä"));
+			DefaultMutableTreeNode node02 = new DefaultMutableTreeNode("éƒ¨é—¨ç®¡ç†");
+			node02.add(new DefaultMutableTreeNode("æ–°å¢éƒ¨é—¨"));
+			node02.add(new DefaultMutableTreeNode("æŸ¥è¯¢æ‰€æœ‰éƒ¨é—¨"));
+			node02.add(new DefaultMutableTreeNode("ä¿®æ”¹"));
 			
-			DefaultMutableTreeNode root = new DefaultMutableTreeNode("ËùÓĞ²Ù×÷");
+			DefaultMutableTreeNode root = new DefaultMutableTreeNode("æ‰€æœ‰æ“ä½œ");
 			root.add(node01);
 			root.add(node02);
 			
 			JTree tree = new JTree(root);
-			//ÉèÖÃtree±³¾°Í¸Ã÷
+			//è®¾ç½®treeèƒŒæ™¯é€æ˜
 			tree.setOpaque(false);
-			//½«½ÚµãÖĞµÄ±³¾°É«ÉèÖÃÎªÍ¸Ã÷
+			//å°†èŠ‚ç‚¹ä¸­çš„èƒŒæ™¯è‰²è®¾ç½®ä¸ºé€æ˜
 			DefaultTreeCellRenderer cellRenderer = new DefaultTreeCellRenderer();
 			cellRenderer.setBackgroundNonSelectionColor(new Color(0,0,0,0));
 			cellRenderer.setBackground(new Color(0,0,0,0));

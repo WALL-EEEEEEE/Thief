@@ -1,0 +1,9 @@
+package com.example.androiddemo;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPerferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;

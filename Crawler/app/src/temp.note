@@ -1,0 +1,37 @@
+Java中的Set.toArray(T[] a)转换失败,必须加(String[])才能转换成功
+    代码:
+
+            /**
+     * Description: 获取配置项的配置名
+     * @return  String[] 返回存在的配置项数组,如果配置项不存在返回空数组
+     *
+     */
+    public String[]  getConfigNames(){
+
+        String[] names = null;
+
+        if(!ConfigGroups.isEmpty()){
+
+            Set valuesSet = ConfigGroups.entrySet();
+
+            names  = valuesSet.toArray(new String[0]);
+
+
+
+        }
+
+        return names;
+
+    }
+
+    编译信息:
+
+        [/home/duanduan/WorkPlace/Java/Crawler_Web/app/src/modules/Files/ConfigFile.java:490: 错误: 不兼容的类型: Object[]无法转换为String[]
+            names  = valuesSet.toArray(new String[0]);]
+
+
+
+如何在Java中Lambda表达式中处理异常?
+
+如何在Java中的Lambda表达式中处理:
+/home/duanduan/WorkPlace/Java/Crawler_Web/app/src/modules/Files/MapFile.java:472: 错误: 从lambda 表达式引用的本地变量必须是最终变量或实际上的最终变量

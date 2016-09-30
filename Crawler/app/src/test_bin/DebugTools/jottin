@@ -1,0 +1,8 @@
+static  <T> T cast(Object object){
+
+
+	这句话啥意思
+	return (T) object;
+
+
+}

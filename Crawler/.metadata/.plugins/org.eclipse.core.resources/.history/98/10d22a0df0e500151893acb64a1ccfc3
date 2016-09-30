@@ -1,0 +1,22 @@
+package com.example.androiddemo;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class SelfEditActivity extends Activity{
+		private EditText nameInput;
+		private EditText urlInput;
+		private TextView tvSubmit;
+		
+		private SharedPreferences sharedPref;
+		
+		@Override
+		protected void 
+	
+
+}

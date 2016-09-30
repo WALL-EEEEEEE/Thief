@@ -1,0 +1,30 @@
+2016-02-05 22:39:08,969 INFO  [org.eclim.eclipse.EclimDaemon] Workspace: /home/duanduan/disk/D/WorkPlace/Java/Crawler_Web
+2016-02-05 22:39:08,972 INFO  [org.eclim.eclipse.EclimDaemon] Home: /home/duanduan/disk/D/LinuxSoftWare/eclipse/plugins/org.eclim_2.3.3/
+2016-02-05 22:39:08,972 INFO  [org.eclim.eclipse.EclimDaemon] Starting eclim...
+2016-02-05 22:39:08,985 INFO  [org.eclim.eclipse.EclimDaemon] Loading plugin org.eclim
+2016-02-05 22:39:08,992 INFO  [org.eclim.eclipse.EclimDaemon] Loading plugin org.eclim.core
+2016-02-05 22:39:09,232 INFO  [org.eclim.plugin.core.CorePlugin] Loading eclim plugins...
+2016-02-05 22:39:09,239 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.cdt
+2016-02-05 22:39:09,241 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.adt
+2016-02-05 22:39:09,243 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.dltkruby
+2016-02-05 22:39:09,245 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.dltk
+2016-02-05 22:39:09,246 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.jdt
+2016-02-05 22:39:09,248 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.pdt
+2016-02-05 22:39:09,249 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.pydev
+2016-02-05 22:39:09,251 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.sdt210
+2016-02-05 22:39:09,252 INFO  [org.eclim.plugin.core.CorePlugin] Loading plugin org.eclim.wst
+2016-02-05 22:39:09,255 INFO  [org.eclim.plugin.core.CorePlugin] Plugins loaded.
+2016-02-05 22:39:09,258 INFO  [org.eclim.eclipse.EclimDaemon] Loaded plugin org.eclim.core
+2016-02-05 22:39:09,266 INFO  [org.eclim.eclipse.EclimDaemon] Eclim Server Started on: 127.0.0.1:9091
+2016-02-05 22:39:09,369 ERROR [org.eclim.eclipse.EclimDaemon] Error starting eclim:
+java.lang.RuntimeException: java.net.BindException: 地址已在使用
+	at com.martiansoftware.nailgun.NGServer.run(NGServer.java:426)
+	at org.eclim.eclipse.EclimDaemon.start(EclimDaemon.java:161)
+	at org.eclim.eclipse.ui.EclimdView$1.run(EclimdView.java:59)
+Caused by: java.net.BindException: 地址已在使用
+	at java.net.PlainSocketImpl.socketBind(Native Method)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:387)
+	at java.net.ServerSocket.bind(ServerSocket.java:375)
+	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+	at com.martiansoftware.nailgun.NGServer.run(NGServer.java:408)
+	... 2 more
