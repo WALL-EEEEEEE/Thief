@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -367,21 +368,26 @@ public class MainFrame  extends JFrame{
 		
 		
 		public void queryEmp(){
-			//清楚所有内容
+			//清除所有内容
 			panelRight.removeAll();
 			//获取员工数据
             ArrayList<Employer> emps = getAllEmp();
-	        Iterator<Employer> its = emps.iterator();
-	        
-	        
-            while(its.hasNext()){
-            	Employer emp = its.next();
-            	String ConvertGender = new String();
-            	ConvertGender = new Integer(emp.getGender()) ==0 ? "女":"男";
-            	JLabel labelemp = new JLabel(emp.getName()+";"+emp.getDept()+";"+ConvertGender);
-                panelRight.add(labelemp);
+            //设置表头信息
+           //生成对应数组
+            int size = emps.size();
+            Object[][] a_emps = new Object[size][];
+            
+            for(int i =0; i<size;i++){
+            	String ConvertGender = new Integer(emps.get(i).getGender()) == 0 ?"女":"男";
+            	a_emps[i] =new String[]{emps.get(i).getName(),emps.get(i).getDept(),ConvertGender};
             }
-            panelRight.updateUI();
+            
+            
+            String[] table_title = {"姓名","部门","性别"};
+	        Iterator<Employer> its = emps.iterator();
+	        JTable staffTable = new JTable(a_emps,table_title);
+	        panelRight.add(staffTable);
+	        panelRight.updateUI();
             
 		}
 		
