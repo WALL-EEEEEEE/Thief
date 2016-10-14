@@ -9,7 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -35,6 +38,7 @@ import org.junit.Test;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 
 
@@ -169,7 +173,9 @@ public class MainFrame  extends JFrame{
 						
 						}else if(str.equals("修改密码")){
 							modifyPassword();
-													}
+						}else if (str.equals("查询")){
+							queryEmp();
+						}
 					}
 					
 				}
@@ -359,6 +365,56 @@ public class MainFrame  extends JFrame{
 			
 		}
 		
+		
+		public void queryEmp(){
+			//清楚所有内容
+			panelRight.removeAll();
+			//获取员工数据
+            ArrayList<Employer> emps = getAllEmp();
+	        Iterator<Employer> its = emps.iterator();
+	        
+	        
+            while(its.hasNext()){
+            	Employer emp = its.next();
+            	String ConvertGender = new String();
+            	ConvertGender = new Integer(emp.getGender()) ==0 ? "女":"男";
+            	JLabel labelemp = new JLabel(emp.getName()+";"+emp.getDept()+";"+ConvertGender);
+                panelRight.add(labelemp);
+            }
+            panelRight.updateUI();
+            
+		}
+		
+		public ArrayList<Employer> getAllEmp(){
+			
+		
+			
+			Connection conn = null;
+	        ArrayList<Employer> emps = new ArrayList<Employer>();
+			try {
+			 conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "root");
+			 PreparedStatement pre = (PreparedStatement) conn.prepareStatement("select * from test.staffs");
+			 ResultSet results = pre.executeQuery();
+			 
+			 //将结果集放入到数组中
+			 while(results.next()){
+				 Employer emp = new Employer();
+			
+				 emp.setDept(results.getString("emp_dept"));
+				 emp.setGender(new Integer(results.getString("emp_gender")));
+				 emp.setName(results.getString("emp_name"));
+				 emps.add(emp);
+			 }
+			
+			  return emps;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return new ArrayList<Employer>();
+
+		}	
 	
 	
 

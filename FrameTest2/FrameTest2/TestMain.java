@@ -14,6 +14,8 @@ import java.awt.event.FocusListener;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,6 +42,7 @@ public class TestMain {
          frame.setTitle("登录");
          frame.setBounds(200, 200, 300, 350);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//         frame.setLayout(new BoxLayout(frame.getContentPanel(),Box));
          frame.setLayout(new FlowLayout());
          
          addImg();
@@ -56,6 +59,7 @@ public class TestMain {
     public static void addImg(){
         Image img = getImage("imgs/bg.jpg");
         JLabel label = new JLabel(new ImageIcon(img));
+        label.setSize(20, 20);
         frame.add(label);
     }
    
